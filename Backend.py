@@ -17,9 +17,15 @@ warnings.filterwarnings("ignore")
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
-CORS(app, supports_credentials=True, origins=["*"],
-     allow_headers=["Content-Type","Authorization"],
-     methods=["GET","POST","PUT","DELETE","OPTIONS"])
+CORS(
+    app,
+    supports_credentials=True,
+    origins=[
+        "https://cognisense-frontend-one.vercel.app"
+    ],
+    allow_headers=["Content-Type", "Authorization"],
+    methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+)
 
 # ──────────────────────────────────────────────────────────────────────────────
 # 1.  LOAD ML MODELS
@@ -1060,8 +1066,9 @@ def options_handler(path):
 # ──────────────────────────────────────────────────────────────────────────────
 if __name__ == "__main__":
     print("=" * 55)
-    print("  Cognisense Backend  →  http://localhost:5050")
+    print("  Cognisense Backend — Production")
     print(f"  Model loaded       →  {ml_model is not None}")
     print(f"  Threshold          →  {THRESHOLD}")
     print("=" * 55)
-    app.run(debug=True, port=5050, host="0.0.0.0")
+
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 5050)))
