@@ -10,3 +10,5 @@ joblib
 matplotlib
 librosa
 psycopg2-binary
+python-dotenv
+gunicorn
